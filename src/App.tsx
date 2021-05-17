@@ -1,24 +1,26 @@
 import React from 'react';
 import logo from './logo.svg';
+import { Routes, Route } from "react-router-dom";
 import './App.css';
+
+import { QuizCategories } from "./pages/QuizCategories/QuizCategories";
+import { NavBar } from './components/NavBar';
+import { Details } from "./pages/Details/Details";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p className="text-red-500 ">
-            Hello
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar />
+
+      <Routes>
+        {/* <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} /> */}
+        <Route path="/quiz/:quizId/rules" element={<Details />} />
+        <Route path="/" element={<QuizCategories />} />
+
+        {/* <Route path="/products/:productId" element={<ProductDetails />} /> */}
+      </Routes>
+
     </div>
   );
 }
