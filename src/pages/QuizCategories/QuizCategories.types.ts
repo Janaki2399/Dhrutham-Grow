@@ -12,7 +12,9 @@ export type Quiz = {
     numOfQuestions: Number;
 }
 export type QuizItemProps = {
+    key: React.Key;
     item: Quiz
+
 }
 
 export type ErrorMessage = {

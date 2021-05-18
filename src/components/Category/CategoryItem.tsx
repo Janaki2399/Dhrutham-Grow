@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { QuizItemProps } from "../../pages/QuizCategories/QuizCategories.types";
 export const CategoryItem = ({ item }: QuizItemProps) => {
-
+    console.log({ item })
     const navigate = useNavigate();
     return (
         <div className="md:shadow-lg" onClick={() => {

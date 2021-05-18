@@ -6,6 +6,7 @@ import './App.css';
 import { QuizCategories } from "./pages/QuizCategories/QuizCategories";
 import { NavBar } from './components/NavBar';
 import { Details } from "./pages/Details/Details";
+import { GameArea } from "./pages/GameArea/GameArea";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         {/* <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} /> */}
         <Route path="/quiz/:quizId/rules" element={<Details />} />
+        <Route path="/quiz/:quizId/play" element={<GameArea />} />
         <Route path="/" element={<QuizCategories />} />
 
         {/* <Route path="/products/:productId" element={<ProductDetails />} /> */}
