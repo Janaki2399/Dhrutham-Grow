@@ -36,13 +36,13 @@ export const GameArea = (): JSX.Element => {
     })();
   }, []);
 
-  function swipeToNextQuestion() {
+  const swipeToNextQuestion = () => {
     setTimeout(() => {
       dispatch({ type: "INCREMENT_QUESTION_NUMBER" });
     }, 500);
-  }
+  };
 
-  function navigateToScorePage() {
+  const navigateToScorePage = () => {
     setTimeout(
       () =>
         navigate(`/quiz/${quizId}/score`, {
@@ -54,7 +54,7 @@ export const GameArea = (): JSX.Element => {
         }),
       1000
     );
-  }
+  };
 
   return (
     <>

@@ -15,19 +15,19 @@ export const OptionItem = ({
     dataDispatch,
   } = useGameContext();
 
-  function setOptionStyle(
+  const setOptionStyle = (
     isOptionSelected: Boolean,
     isOptionRight: Boolean
-  ): string {
+  ): string => {
     if (isOptionSelected && isOptionRight) {
       return "option-btn option-correct";
     } else if (isOptionSelected && !isOptionRight) {
       return "option-btn option-wrong";
     }
     return "option-btn option-unselected";
-  }
+  };
 
-  function updateScore(isRight: Boolean) {
+  const updateScore = (isRight: Boolean) => {
     if (isRight) {
       dispatch({
         type: "INCREMENT_SCORE",
@@ -43,26 +43,27 @@ export const OptionItem = ({
         type: "INCREMENT_WRONG_ANSWER_COUNT",
       });
     }
-  }
+  };
 
+  function updateOptionStateAndScore(isRight: Boolean) {
+    dataDispatch({
+      type: "UPDATE_OPTION_STATE",
+      payload: {
+        optionIndex: index,
+        questionIndex: currentQuestionIndex,
+      },
+    });
+
+    updateScore(isRight);
+  }
   return (
     <div>
       <button
         disabled={questions[currentQuestionIndex]?.isAttempted}
         className={setOptionStyle(isSelected, isRight)}
         onClick={() => {
-          dataDispatch({
-            type: "UPDATE_OPTION_STATE",
-            payload: {
-              optionIndex: index,
-              questionIndex: currentQuestionIndex,
-            },
-          });
-
-          updateScore(isRight);
-          if (currentQuestionIndex < questions.length - 1) {
-            swipeToNextQuestion();
-          }
+          updateOptionStateAndScore(isRight);
+          currentQuestionIndex < questions.length - 1 && swipeToNextQuestion();
         }}
       >
         {text}

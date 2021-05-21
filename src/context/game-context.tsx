@@ -4,7 +4,7 @@ import { ChildrenProps, ContextType, Question } from "./game-context.types";
 
 const GameContext = createContext<ContextType | null>(null);
 
-export function GameProvider({ children }: ChildrenProps) {
+export const GameProvider = ({ children }: ChildrenProps) => {
   const [dataState, dataDispatch] = useReducer(dataReducer, {
     questions: [],
   });
@@ -14,9 +14,9 @@ export function GameProvider({ children }: ChildrenProps) {
       {children}
     </GameContext.Provider>
   );
-}
+};
 
-export function useGameContext() {
+export const useGameContext = () => {
   const data = useContext(GameContext);
   return data!;
-}
+};

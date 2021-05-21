@@ -1,7 +1,7 @@
 import { State } from "./dataReducer.types";
 import { ACTIONTYPE } from "./dataReducer.types";
 
-export function dataReducer(state: State, action: ACTIONTYPE): State {
+export const dataReducer = (state: State, action: ACTIONTYPE): State => {
   switch (action.type) {
     case "SET_DATA":
       return {
@@ -38,4 +38,4 @@ export function dataReducer(state: State, action: ACTIONTYPE): State {
     default:
       return state;
   }
-}
+};
