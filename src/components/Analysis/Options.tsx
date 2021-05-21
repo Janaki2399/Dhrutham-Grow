@@ -1,10 +1,10 @@
 import { OptionsProps } from "../../pages/Analysis/Analysis.types";
 
 export const Options = ({ options }: OptionsProps) => {
-  function getOptionStyle(
+  const getOptionStyle = (
     isOptionSelected: Boolean,
     isOptionRight: Boolean
-  ): string {
+  ): string => {
     if (isOptionRight) {
       return "option-btn option-correct";
     }
@@ -12,7 +12,7 @@ export const Options = ({ options }: OptionsProps) => {
       return "option-btn option-wrong";
     }
     return "option-btn option-unselected";
-  }
+  };
   return (
     <div className="grid grid-cols-2 grid-rows-2 gap-5">
       {options.map((option) => {

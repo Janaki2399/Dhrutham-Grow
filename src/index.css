@@ -20,7 +20,7 @@ code {
     @apply bg-green-700 text-white;
   }
   .option-wrong {
-    @apply bg-red-700 text-white;
+    @apply bg-red-700  text-white;
   }
 
   .option-btn {

@@ -27,8 +27,8 @@ export const OptionItem = ({
     return "option-btn option-unselected";
   };
 
-  const updateScore = (isRight: Boolean) => {
-    if (isRight) {
+  const updateScore = (isOptionRight: Boolean) => {
+    if (isOptionRight) {
       dispatch({
         type: "INCREMENT_SCORE",
         payload: {
