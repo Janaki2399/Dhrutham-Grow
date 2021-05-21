@@ -1,8 +1,6 @@
 import React, { ReactNode } from "react";
 
 export type ContextType = {
-  //   questions: Question[] | null;
-  //   setQuestions: React.Dispatch<React.SetStateAction<Question[] | null>>;
   dataState: State;
   dataDispatch: React.Dispatch<ACTIONTYPE>;
 };
@@ -18,6 +16,7 @@ export type Question = {
   question: String;
   points: number;
   level: String;
+  isAttempted: boolean;
   options: Option[];
 };
 export type Option = {

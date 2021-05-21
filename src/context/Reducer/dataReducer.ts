@@ -1,5 +1,5 @@
-import { State } from "./game-context.types";
-import { ACTIONTYPE } from "./game-context.types";
+import { State } from "./dataReducer.types";
+import { ACTIONTYPE } from "./dataReducer.types";
 
 export function dataReducer(state: State, action: ACTIONTYPE): State {
   switch (action.type) {
@@ -9,6 +9,7 @@ export function dataReducer(state: State, action: ACTIONTYPE): State {
         questions: action.payload.map((item) => {
           return {
             ...item,
+            isAttempted: false,
             options: item.options.map((item) => {
               return { ...item, isSelected: false };
             }),
@@ -22,6 +23,7 @@ export function dataReducer(state: State, action: ACTIONTYPE): State {
           if (index === action.payload.questionIndex) {
             return {
               ...question,
+              isAttempted: true,
               options: question.options.map((option, index) => {
                 if (index === (action.payload.optionIndex as number)) {
                   return { ...option, isSelected: true };

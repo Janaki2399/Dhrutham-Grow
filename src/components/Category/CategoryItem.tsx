@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { QuizItemProps } from "../../pages/QuizCategories/QuizCategories.types";
-export const CategoryItem = ({ item }: QuizItemProps) => {
-  console.log({ item });
+
+export const CategoryItem = ({ item }: QuizItemProps): JSX.Element => {
   const navigate = useNavigate();
   return (
     <div

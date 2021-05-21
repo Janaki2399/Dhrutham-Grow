@@ -1,8 +1,4 @@
-import React, { ReactNode } from "react";
-
-export type ChildrenProps = {
-  children: ReactNode;
-};
+import { Question } from "../../../context/game-context.types";
 
 export type State = {
   questions: Question[];
@@ -12,29 +8,9 @@ export type State = {
   numberOfWrongAnswers: number;
 };
 
-export type Question = {
-  [key: number]: Question;
-  topic: String;
-  question: String;
-  points: number;
-  level: String;
-  options: Option[];
-};
-
-export type Option = {
-  text: String;
-  isRight: Boolean;
-  isSelected: Boolean;
-};
-
 export type ACTIONTYPE =
   | { type: "SET_GAME"; payload: Question[] }
   | { type: "INCREMENT_QUESTION_NUMBER" }
   | { type: "INCREMENT_SCORE"; payload: { points: number } }
   | { type: "INCREMENT_CORRECT_ANSWER_COUNT" }
   | { type: "INCREMENT_WRONG_ANSWER_COUNT" };
-
-// export type ContextType = {
-//   state: State;
-//   dispatch: React.Dispatch<ACTIONTYPE>;
-// };

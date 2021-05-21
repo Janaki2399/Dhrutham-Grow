@@ -2,31 +2,22 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { ErrorMessage } from "../QuizCategories/QuizCategories.types";
 import { Detail, DetailItem } from "./Details.types";
-import axios, { AxiosError } from "axios";
-export const Details = () => {
+import { getGameDetails } from "../../services/Details/GetGameDetails";
+
+export const Details = (): JSX.Element => {
   const { quizId } = useParams();
   const navigate = useNavigate();
-  const [details, setDetails] = useState<DetailItem>();
-  const [error, setError] = useState<ErrorMessage>();
+  const [details, setDetails] = useState<DetailItem | null>(null);
+  const [error, setError] = useState<ErrorMessage | null>(null);
+
   useEffect(() => {
     (async function () {
-      try {
-        const { data, status } = await axios.get<Detail>(
-          `https://QuizApp.janaki23.repl.co/quiz/${quizId}/rules`
-        );
+      const details = await getGameDetails(quizId);
 
-        if (status === 200) {
-          setDetails(data.details);
-        }
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          const serverError = error as AxiosError<ErrorMessage>;
-          if (serverError && serverError.response) {
-            return setError(serverError.response.data);
-          }
-        }
-        setError({ success: false, errorMessage: error.message });
+      if ("rules" in details) {
+        return setDetails(details);
       }
+      setError(details);
     })();
   }, []);
 
@@ -42,7 +33,7 @@ export const Details = () => {
             </div>
             <div>
               <button
-                className="py-2 px-8 font-semibold md:text-white rounded-md bg-primary-color text-white"
+                className="action-btn"
                 onClick={() => navigate(`/quiz/${quizId}/play`)}
               >
                 Start

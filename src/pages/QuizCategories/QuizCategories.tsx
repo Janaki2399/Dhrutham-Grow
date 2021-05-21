@@ -1,31 +1,19 @@
 import { useEffect, useState } from "react";
 import { CategoryItem } from "../../components/Category/CategoryItem";
-import { QuizList } from "./QuizCategories.types";
 import { Quiz, ErrorMessage } from "./QuizCategories.types";
+import { getQuizList } from "../../services/QuizCategories/getQuizList";
 
-import axios, { AxiosError } from "axios";
+export const QuizCategories = ({}): JSX.Element => {
+  const [quizzes, setQuizzes] = useState<Quiz[] | null>(null);
+  const [error, setError] = useState<ErrorMessage | null>(null);
 
-export const QuizCategories = ({}) => {
-  const [quizzes, setQuizzes] = useState<Quiz[]>();
-  const [error, setError] = useState<ErrorMessage>();
   useEffect(() => {
     (async function () {
-      try {
-        const { data, status } = await axios.get<QuizList>(
-          "https://QuizApp.janaki23.repl.co/quiz"
-        );
-        if (status === 200) {
-          setQuizzes(data.quizList);
-        }
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          const serverError = error as AxiosError<ErrorMessage>;
-          if (serverError && serverError.response) {
-            return setError(serverError.response.data);
-          }
-        }
-        setError({ success: false, errorMessage: error.message });
+      const quiz = await getQuizList();
+      if (Array.isArray(quiz)) {
+        return setQuizzes(quiz);
       }
+      setError(quiz);
     })();
   }, []);
 
