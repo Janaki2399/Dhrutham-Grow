@@ -3,23 +3,25 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { ErrorMessage } from "../QuizCategories/QuizCategories.types";
 import { Detail, DetailItem } from "./Details.types";
 import { getGameDetails } from "../../services/Details/GetGameDetails";
+import { useAuth } from "../../context/Auth/auth-context";
 
 export const Details = (): JSX.Element => {
   const { quizId } = useParams();
   const navigate = useNavigate();
+  const { token } = useAuth();
   const [details, setDetails] = useState<DetailItem | null>(null);
   const [error, setError] = useState<ErrorMessage | null>(null);
 
   useEffect(() => {
     (async function () {
-      const details = await getGameDetails(quizId);
+      const details = await getGameDetails(quizId, token);
 
       if ("rules" in details) {
         return setDetails(details);
       }
       setError(details);
     })();
-  }, []);
+  }, [token]);
 
   return (
     <div className="flex items-center justify-center h-screen w-full ">

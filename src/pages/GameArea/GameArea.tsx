@@ -8,10 +8,13 @@ import { Header } from "../../components/GameArea/Header";
 import { ActionButton } from "../../components/GameArea/ActionButton";
 import { Question } from "../../components/GameArea/Question";
 import { getGameQuestions } from "../../services/GameArea/GameArea";
+import { useAuth } from "../../context/Auth/auth-context";
+import axios from "axios";
 
 export const GameArea = (): JSX.Element => {
   const { quizId } = useParams();
   const navigate = useNavigate();
+  const { token } = useAuth();
   const [error, setError] = useState<ErrorMessage | null>(null);
   const [loading, setLoading] = useState(false);
   const { dataDispatch } = useGameContext();
@@ -25,7 +28,7 @@ export const GameArea = (): JSX.Element => {
 
   useEffect(() => {
     (async function () {
-      const response = await getGameQuestions(quizId);
+      const response = await getGameQuestions(quizId, token);
       if ("questions" in response) {
         return dataDispatch({
           type: "SET_DATA",
@@ -34,7 +37,7 @@ export const GameArea = (): JSX.Element => {
       }
       setError(response);
     })();
-  }, []);
+  }, [token]);
 
   const swipeToNextQuestion = () => {
     setTimeout(() => {
@@ -42,18 +45,17 @@ export const GameArea = (): JSX.Element => {
     }, 500);
   };
 
-  const navigateToScorePage = () => {
-    setTimeout(
-      () =>
-        navigate(`/quiz/${quizId}/score`, {
-          state: {
-            score: state.score,
-            numberOfCorrectAnswers: state.numberOfCorrectAnswers,
-            numberOfWrongAnswers: state.numberOfWrongAnswers,
-          },
-        }),
-      1000
-    );
+  const navigateToScorePage = async () => {
+    const { data, status } = await axios.post("", {});
+    if (status === 200) {
+      navigate(`/quiz/${quizId}/score`, {
+        state: {
+          score: state.score,
+          numberOfCorrectAnswers: state.numberOfCorrectAnswers,
+          numberOfWrongAnswers: state.numberOfWrongAnswers,
+        },
+      });
+    }
   };
 
   return (

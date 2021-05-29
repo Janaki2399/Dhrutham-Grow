@@ -2,7 +2,7 @@ import React, { createContext, Reducer, useContext, useReducer } from "react";
 import { dataReducer } from "./Reducer/dataReducer";
 import { ChildrenProps, ContextType, Question } from "./game-context.types";
 
-const GameContext = createContext<ContextType | null>(null);
+const GameContext = createContext<ContextType>({} as ContextType);
 
 export const GameProvider = ({ children }: ChildrenProps) => {
   const [dataState, dataDispatch] = useReducer(dataReducer, {
@@ -17,6 +17,5 @@ export const GameProvider = ({ children }: ChildrenProps) => {
 };
 
 export const useGameContext = () => {
-  const data = useContext(GameContext);
-  return data!;
+  return useContext(GameContext);
 };
