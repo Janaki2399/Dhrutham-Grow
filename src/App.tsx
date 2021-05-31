@@ -10,6 +10,8 @@ import { NavBar } from "./components/NavBar";
 import { Details } from "./pages/Details/Details";
 import { GameArea } from "./pages/GameArea/GameArea";
 import { Analysis } from "./pages/Analysis/Analysis";
+import { ProgressList } from "./pages/ProgressList/ProgressList";
+import { Progress } from "./pages/Progress/Progress";
 function App() {
   return (
     <div className="App">
@@ -20,6 +22,8 @@ function App() {
         <PrivateRoute path="/quiz/:quizId/rules" element={<Details />} />
         <PrivateRoute path="/quiz/:quizId/play" element={<GameArea />} />
         <PrivateRoute path="/quiz/:quizId/score" element={<Analysis />} />
+        <PrivateRoute path="/progress_list" element={<ProgressList />} />
+        <PrivateRoute path="/progress/:progressId" element={<Progress />} />
         <Route path="/" element={<QuizCategories />} />
       </Routes>
     </div>

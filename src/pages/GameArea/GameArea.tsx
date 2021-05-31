@@ -46,7 +46,19 @@ export const GameArea = (): JSX.Element => {
   };
 
   const navigateToScorePage = async () => {
-    const { data, status } = await axios.post("", {});
+    const { data, status } = await axios.post(
+      `https://QuizApp.janaki23.repl.co/progress_list/${quizId}`,
+      {
+        score: state.score,
+        numberOfCorrectAnswers: state.numberOfCorrectAnswers,
+        numberOfWrongAnswers: state.numberOfWrongAnswers,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     if (status === 200) {
       navigate(`/quiz/${quizId}/score`, {
         state: {
@@ -60,8 +72,8 @@ export const GameArea = (): JSX.Element => {
 
   return (
     <>
-      <div className="flex items-center justify-center h-screen ">
-        <div className="max-w-3xl border p-10 shadow-lg">
+      <div className="flex items-center justify-center h-screen bg-gray-200 ">
+        <div className="max-w-3xl border p-10 shadow-lg bg-white">
           <Header
             score={state.score}
             currentQuestionIndex={state.currentQuestionIndex}
