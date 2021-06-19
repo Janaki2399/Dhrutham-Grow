@@ -1,4 +1,4 @@
-import { Question } from "../game-context.types";
+import { Question } from "../../context/data/data-context.types";
 export type State = {
   questions: Question[];
 };

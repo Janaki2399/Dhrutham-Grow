@@ -1,10 +1,11 @@
 import { Detail, ErrorMessage } from "../../pages/Details/Details.types";
 import axios, { AxiosError } from "axios";
+import { API_URL } from "../../config";
 
 export const getGameDetails = async (quizId: string, token: string | null) => {
   try {
     const { data } = await axios.get<Detail>(
-      `https://QuizApp.janaki23.repl.co/quiz/${quizId}/rules`,
+      `${API_URL}/quiz/${quizId}/rules`,
       {
         headers: {
           authorization: token,

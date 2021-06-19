@@ -9,6 +9,7 @@ export const ProgressListItem = ({ _id, numberOfAttempts, quiz }: Progress) => {
       <img
         src={quiz.thumbnail}
         className="object-cover h-full w-full md:w-70 md:h-60 "
+        alt="quiz-thumbnail"
       />
       <div className="flex items-center justify-between py-3 px-1">
         <div>

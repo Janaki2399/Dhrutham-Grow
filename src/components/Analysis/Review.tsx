@@ -1,4 +1,4 @@
-import { useGameContext } from "../../context/game-context";
+import { useGameContext } from "../../context/data/data-context";
 import { Options } from "./Options";
 
 export const Review = () => {

@@ -1,13 +1,8 @@
-import { State } from "./GameReducer.types";
-import { ACTIONTYPE } from "./GameReducer.types";
+import { State } from "./gameReducer.types";
+import { ACTIONTYPE } from "./gameReducer.types";
 
 export function gameReducer(state: State, action: ACTIONTYPE): State {
   switch (action.type) {
-    case "SET_GAME":
-      return {
-        ...state,
-        questions: action.payload,
-      };
     case "INCREMENT_QUESTION_NUMBER":
       return {
         ...state,

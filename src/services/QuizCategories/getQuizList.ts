@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { API_URL } from "../../config";
 import {
   QuizList,
   ErrorMessage,
@@ -6,9 +7,7 @@ import {
 
 export const getQuizList = async () => {
   try {
-    const { data } = await axios.get<QuizList>(
-      "https://QuizApp.janaki23.repl.co/quiz"
-    );
+    const { data } = await axios.get<QuizList>(`${API_URL}/quiz`);
 
     return data.quizList;
   } catch (error) {

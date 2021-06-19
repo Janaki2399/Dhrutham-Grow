@@ -2,22 +2,36 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/Auth/auth-context";
 import { ErrorMessage, ScoreDetails } from "./Progress.types";
 import { getProgress } from "../../services/Progress/getProgress";
+import { APIStatus } from "../../constants";
 import { useParams } from "react-router";
+import { Loader } from "../../components/Loader";
+
 export const Progress = () => {
-  const [progress, setProgress] = useState<ScoreDetails | null>(null);
   const { progressId } = useParams();
+
+  const [progress, setProgress] = useState<ScoreDetails | null>(null);
+  const [status, setStatus] = useState<APIStatus>(APIStatus.IDLE);
   const [error, setError] = useState<ErrorMessage | null>(null);
 
   const { token } = useAuth();
   useEffect(() => {
     (async function () {
+      setStatus(APIStatus.LOADING);
       const progress = await getProgress(progressId, token);
+
       if ("highestScore" in progress) {
+        setStatus(APIStatus.SUCCESS);
         return setProgress(progress);
       }
+
+      setStatus(APIStatus.ERROR);
       setError(progress);
     })();
-  }, []);
+  }, [token, progressId]);
+
+  if (status === APIStatus.LOADING || status === APIStatus.IDLE) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex items-center justify-center h-screen m-5">

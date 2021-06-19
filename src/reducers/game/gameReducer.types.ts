@@ -1,7 +1,6 @@
-import { Question } from "../../../context/game-context.types";
+import { Question } from "../../context/data/data-context.types";
 
 export type State = {
-  questions: Question[];
   currentQuestionIndex: number;
   score: number;
   numberOfCorrectAnswers: number;
@@ -9,7 +8,6 @@ export type State = {
 };
 
 export type ACTIONTYPE =
-  | { type: "SET_GAME"; payload: Question[] }
   | { type: "INCREMENT_QUESTION_NUMBER" }
   | { type: "INCREMENT_SCORE"; payload: { points: number } }
   | { type: "INCREMENT_CORRECT_ANSWER_COUNT" }

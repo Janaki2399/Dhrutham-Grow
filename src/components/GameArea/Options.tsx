@@ -1,4 +1,4 @@
-import { useGameContext } from "../../context/game-context";
+import { useGameContext } from "../../context/data/data-context";
 import { OptionItem } from "./OptionItem";
 import { OptionsProps } from "../../pages/GameArea/GameArea.types";
 

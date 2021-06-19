@@ -1,4 +1,4 @@
-import { Option } from "../../context/game-context.types";
+import { Option } from "../../context/data/data-context.types";
 
 export type ErrorMessage = {
   success: Boolean;

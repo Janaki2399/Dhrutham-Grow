@@ -1,10 +1,12 @@
 import axios, { AxiosError } from "axios";
 import { Progress, ErrorMessage } from "../../pages/Progress/Progress.types";
+import { API_URL } from "../../config";
 
 export const getProgress = async (progessId: string, token: string | null) => {
+  console.log(API_URL);
   try {
     const { data } = await axios.get<Progress>(
-      `https://QuizApp.janaki23.repl.co/progress/${progessId}`,
+      `${API_URL}/progress/${progessId}`,
       {
         headers: {
           authorization: token,

@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { API_URL } from "../../config";
 import {
   ProgressList,
   ErrorMessage,
@@ -6,14 +7,11 @@ import {
 
 export const getProgressList = async (token: string | null) => {
   try {
-    const { data } = await axios.get<ProgressList>(
-      "https://QuizApp.janaki23.repl.co/progress_list",
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    );
+    const { data } = await axios.get<ProgressList>(`${API_URL}/progress_list`, {
+      headers: {
+        authorization: token,
+      },
+    });
 
     return data.progressList.list;
   } catch (error) {

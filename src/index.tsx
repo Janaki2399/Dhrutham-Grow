@@ -3,16 +3,16 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
-import { GameProvider } from "./context/game-context";
+import { DataProvider } from "./context/data/data-context";
 import { AuthProvider } from "./context/Auth/auth-context";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <AuthProvider>
-        <GameProvider>
+        <DataProvider>
           <App />
-        </GameProvider>
+        </DataProvider>
       </AuthProvider>
     </Router>
   </React.StrictMode>,

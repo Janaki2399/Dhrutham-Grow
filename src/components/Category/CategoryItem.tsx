@@ -13,6 +13,7 @@ export const CategoryItem = ({ item }: QuizItemProps): JSX.Element => {
       <img
         src={item.thumbnail}
         className="object-cover h-full w-full md:w-70 md:h-60 "
+        alt="thumbnail"
       />
       <div className="flex justify-between py-3 px-1">
         <div className="font-semibold">{item.name}</div>

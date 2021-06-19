@@ -1,6 +1,6 @@
 import React from "react";
-import { State, ACTIONTYPE } from "./Reducer/GameReducer.types";
-import { Question } from "../../context/game-context.types";
+import { State, ACTIONTYPE } from "../../reducers/game/gameReducer.types";
+import { Question } from "../../context/data/data-context.types";
 export type Game = {
   _id: React.Key;
   game: {

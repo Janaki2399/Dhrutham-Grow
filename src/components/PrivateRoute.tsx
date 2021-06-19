@@ -8,8 +8,6 @@ type PrivateRouteProps = {
 };
 export function PrivateRoute({ path, element }: PrivateRouteProps) {
   const location = useLocation();
-  //   console.log(location);
-  //   console.log(location.pathname);
   const { token } = useAuth();
   return token ? (
     <Route path={path} element={element} />

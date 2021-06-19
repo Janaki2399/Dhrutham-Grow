@@ -4,24 +4,34 @@ import { ErrorMessage } from "../QuizCategories/QuizCategories.types";
 import { Detail, DetailItem } from "./Details.types";
 import { getGameDetails } from "../../services/Details/GetGameDetails";
 import { useAuth } from "../../context/Auth/auth-context";
+import { APIStatus } from "../../constants";
+import { Loader } from "../../components/Loader";
 
 export const Details = (): JSX.Element => {
   const { quizId } = useParams();
   const navigate = useNavigate();
   const { token } = useAuth();
   const [details, setDetails] = useState<DetailItem | null>(null);
+  const [status, setStatus] = useState<APIStatus>(APIStatus.IDLE);
   const [error, setError] = useState<ErrorMessage | null>(null);
 
   useEffect(() => {
     (async function () {
+      setStatus(APIStatus.LOADING);
       const details = await getGameDetails(quizId, token);
 
       if ("rules" in details) {
+        setStatus(APIStatus.SUCCESS);
         return setDetails(details);
       }
+      setStatus(APIStatus.ERROR);
       setError(details);
     })();
-  }, [token]);
+  }, [token, quizId]);
+
+  if (status === APIStatus.LOADING || status === APIStatus.IDLE) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex items-center justify-center h-screen w-full ">

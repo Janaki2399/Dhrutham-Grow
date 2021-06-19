@@ -1,14 +1,17 @@
 import { useEffect, useState, useReducer } from "react";
-import { gameReducer } from "./Reducer/gameReducer";
+import { gameReducer } from "../../reducers/game/gameReducer";
 import { Navigate, Route, useNavigate, useParams } from "react-router-dom";
 import { ErrorMessage } from "../QuizCategories/QuizCategories.types";
-import { useGameContext } from "../../context/game-context";
+import { useGameContext } from "../../context/data/data-context";
 import { Options } from "../../components/GameArea/Options";
 import { Header } from "../../components/GameArea/Header";
 import { ActionButton } from "../../components/GameArea/ActionButton";
 import { Question } from "../../components/GameArea/Question";
 import { getGameQuestions } from "../../services/GameArea/GameArea";
 import { useAuth } from "../../context/Auth/auth-context";
+import { API_URL } from "../../config";
+import { APIStatus } from "../../constants";
+import { Loader } from "../../components/Loader";
 import axios from "axios";
 
 export const GameArea = (): JSX.Element => {
@@ -16,10 +19,9 @@ export const GameArea = (): JSX.Element => {
   const navigate = useNavigate();
   const { token } = useAuth();
   const [error, setError] = useState<ErrorMessage | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<APIStatus>(APIStatus.IDLE);
   const { dataDispatch } = useGameContext();
   const [state, dispatch] = useReducer(gameReducer, {
-    questions: [],
     currentQuestionIndex: 0,
     score: 0,
     numberOfCorrectAnswers: 0,
@@ -28,16 +30,23 @@ export const GameArea = (): JSX.Element => {
 
   useEffect(() => {
     (async function () {
+      setStatus(APIStatus.LOADING);
       const response = await getGameQuestions(quizId, token);
       if ("questions" in response) {
+        setStatus(APIStatus.SUCCESS);
         return dataDispatch({
           type: "SET_DATA",
           payload: response.questions,
         });
       }
+      setStatus(APIStatus.ERROR);
       setError(response);
     })();
-  }, [token]);
+  }, [token, quizId, dataDispatch]);
+
+  if (status === APIStatus.LOADING || status === APIStatus.IDLE) {
+    return <Loader />;
+  }
 
   const swipeToNextQuestion = () => {
     setTimeout(() => {
@@ -47,7 +56,7 @@ export const GameArea = (): JSX.Element => {
 
   const navigateToScorePage = async () => {
     const { data, status } = await axios.post(
-      `https://QuizApp.janaki23.repl.co/progress_list/${quizId}`,
+      `${API_URL}/progress_list/${quizId}`,
       {
         score: state.score,
         numberOfCorrectAnswers: state.numberOfCorrectAnswers,
