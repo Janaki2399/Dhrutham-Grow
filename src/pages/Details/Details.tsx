@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { ErrorMessage } from "../QuizCategories/QuizCategories.types";
 import { Detail, DetailItem } from "./Details.types";
-import { getGameDetails } from "../../services/Details/GetGameDetails";
 import { useAuth } from "../../context/Auth/auth-context";
 import { APIStatus } from "../../constants";
 import { Loader } from "../../components/Loader";
+import { getGameDetails } from "../../services/Details/getGameDetails";
 
 export const Details = (): JSX.Element => {
   const { quizId } = useParams();

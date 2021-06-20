@@ -5,19 +5,19 @@ export type Game = {
   _id: React.Key;
   game: {
     questions: Question[];
-    totalScore: Number;
+    totalScore: number;
   };
 };
 
 export type ErrorMessage = {
-  success: Boolean;
-  errorMessage: String;
+  success: boolean;
+  errorMessage: string;
 };
 
 export type OptionItemProps = {
-  text: String;
-  isRight: Boolean;
-  isSelected: Boolean;
+  text: string;
+  isRight: boolean;
+  isSelected: boolean;
   index: number;
   currentQuestionIndex: number;
   dispatch: React.Dispatch<ACTIONTYPE>;

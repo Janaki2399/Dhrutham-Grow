@@ -5,7 +5,7 @@ export const ProgressListItem = ({ _id, numberOfAttempts, quiz }: Progress) => {
   const navigate = useNavigate();
 
   return (
-    <div className="md:shadow-lg">
+    <div className="md:shadow-lg mt-8">
       <img
         src={quiz.thumbnail}
         className="object-cover h-full w-full md:w-70 md:h-60 "

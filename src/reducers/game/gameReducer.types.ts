@@ -9,6 +9,6 @@ export type State = {
 
 export type ACTIONTYPE =
   | { type: "INCREMENT_QUESTION_NUMBER" }
-  | { type: "INCREMENT_SCORE"; payload: { points: number } }
+  | { type: "CALCULATE_SCORE"; payload: { points: number } }
   | { type: "INCREMENT_CORRECT_ANSWER_COUNT" }
   | { type: "INCREMENT_WRONG_ANSWER_COUNT" };

@@ -2,14 +2,14 @@ import React from "react";
 
 export type QuizList = {
   quizList: Quiz[];
-  success: Boolean;
+  success: boolean;
 };
 
 export type Quiz = {
   _id: React.Key;
-  name: String;
+  name: string;
   thumbnail: string;
-  numOfQuestions: Number;
+  numOfQuestions: number;
 };
 
 export type QuizItemProps = {
@@ -18,6 +18,6 @@ export type QuizItemProps = {
 };
 
 export type ErrorMessage = {
-  success: Boolean;
-  errorMessage: String;
+  success: boolean;
+  errorMessage: string;
 };

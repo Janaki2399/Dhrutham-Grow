@@ -30,7 +30,7 @@ export const OptionItem = ({
   const updateScore = (isOptionRight: Boolean) => {
     if (isOptionRight) {
       dispatch({
-        type: "INCREMENT_SCORE",
+        type: "CALCULATE_SCORE",
         payload: {
           points: questions[currentQuestionIndex].points,
         },

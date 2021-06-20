@@ -21,6 +21,6 @@ export const getProgressList = async (token: string | null) => {
         return serverError.response.data;
       }
     }
-    return { success: false, errorMessage: error?.message as string };
+    return { success: false, errorMessage: "Something went wrong" };
   }
 };

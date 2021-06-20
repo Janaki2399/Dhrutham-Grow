@@ -21,6 +21,6 @@ export const getGameDetails = async (quizId: string, token: string | null) => {
         return serverError.response.data;
       }
     }
-    return { success: false, errorMessage: error.message as String };
+    return { success: false, errorMessage: "Something went wrong" };
   }
 };

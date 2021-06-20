@@ -3,7 +3,6 @@ import { Progress, ErrorMessage } from "../../pages/Progress/Progress.types";
 import { API_URL } from "../../config";
 
 export const getProgress = async (progessId: string, token: string | null) => {
-  console.log(API_URL);
   try {
     const { data } = await axios.get<Progress>(
       `${API_URL}/progress/${progessId}`,
@@ -22,6 +21,6 @@ export const getProgress = async (progessId: string, token: string | null) => {
         return serverError.response.data;
       }
     }
-    return { success: false, errorMessage: error?.message as string };
+    return { success: false, errorMessage: "Something went wrong" };
   }
 };

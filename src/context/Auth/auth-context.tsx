@@ -2,6 +2,7 @@ import { strict } from "assert";
 import axios from "axios";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../config";
 import {
   SignUp,
   ChildrenProps,
@@ -38,13 +39,10 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
   //   }
   const login = async (email: string, password: string, state: RouteState) => {
     try {
-      const { data, status } = await axios.post<Login>(
-        "https://QuizApp.janaki23.repl.co/login",
-        {
-          email: email,
-          password: password,
-        }
-      );
+      const { data, status } = await axios.post<Login>(`${API_URL}/login`, {
+        email: email,
+        password: password,
+      });
 
       if (status === 200) {
         setToken(data.token);
@@ -59,15 +57,12 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
 
   const signUp = async ({ firstName, lastName, email, password }: SignUp) => {
     try {
-      const { data, status } = await axios.post(
-        "https://QuizApp.janaki23.repl.co/signup",
-        {
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          password: password,
-        }
-      );
+      const { data, status } = await axios.post(`${API_URL}/signup`, {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      });
       if (status === 200) {
         setToken(data.token);
         navigate("/"); //check redirecting to called page

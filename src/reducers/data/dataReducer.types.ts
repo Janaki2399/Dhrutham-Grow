@@ -4,7 +4,7 @@ export type State = {
 };
 
 export type ACTIONTYPE =
-  | { type: "SET_DATA"; payload: Question[] }
+  | { type: "SET_DATA"; payload: { questions: Question[] } }
   | {
       type: "UPDATE_OPTION_STATE";
       payload: { optionIndex: number; questionIndex: number };

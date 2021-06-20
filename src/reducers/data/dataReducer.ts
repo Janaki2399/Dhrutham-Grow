@@ -6,7 +6,7 @@ export const dataReducer = (state: State, action: ACTIONTYPE): State => {
     case "SET_DATA":
       return {
         ...state,
-        questions: action.payload.map((item) => {
+        questions: action.payload.questions.map((item) => {
           return {
             ...item,
             isAttempted: false,
@@ -28,7 +28,7 @@ export const dataReducer = (state: State, action: ACTIONTYPE): State => {
                 if (index === (action.payload.optionIndex as number)) {
                   return { ...option, isSelected: true };
                 }
-                return { ...option, isSelected: false };
+                return { ...option };
               }),
             };
           }

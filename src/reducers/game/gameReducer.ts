@@ -1,6 +1,13 @@
 import { State } from "./gameReducer.types";
 import { ACTIONTYPE } from "./gameReducer.types";
 
+export const initialState: State = {
+  currentQuestionIndex: 0,
+  score: 0,
+  numberOfCorrectAnswers: 0,
+  numberOfWrongAnswers: 0,
+};
+
 export function gameReducer(state: State, action: ACTIONTYPE): State {
   switch (action.type) {
     case "INCREMENT_QUESTION_NUMBER":
@@ -8,7 +15,7 @@ export function gameReducer(state: State, action: ACTIONTYPE): State {
         ...state,
         currentQuestionIndex: state.currentQuestionIndex + 1,
       };
-    case "INCREMENT_SCORE":
+    case "CALCULATE_SCORE":
       return {
         ...state,
         score: state.score + action.payload.points,

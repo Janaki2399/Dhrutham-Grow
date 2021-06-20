@@ -1,5 +1,5 @@
 import { useEffect, useState, useReducer } from "react";
-import { gameReducer } from "../../reducers/game/gameReducer";
+import { gameReducer, initialState } from "../../reducers/game/gameReducer";
 import { Navigate, Route, useNavigate, useParams } from "react-router-dom";
 import { ErrorMessage } from "../QuizCategories/QuizCategories.types";
 import { useGameContext } from "../../context/data/data-context";
@@ -7,7 +7,7 @@ import { Options } from "../../components/GameArea/Options";
 import { Header } from "../../components/GameArea/Header";
 import { ActionButton } from "../../components/GameArea/ActionButton";
 import { Question } from "../../components/GameArea/Question";
-import { getGameQuestions } from "../../services/GameArea/GameArea";
+import { getGameQuestions } from "../../services/GameArea/getQuestions";
 import { useAuth } from "../../context/Auth/auth-context";
 import { API_URL } from "../../config";
 import { APIStatus } from "../../constants";
@@ -21,12 +21,8 @@ export const GameArea = (): JSX.Element => {
   const [error, setError] = useState<ErrorMessage | null>(null);
   const [status, setStatus] = useState<APIStatus>(APIStatus.IDLE);
   const { dataDispatch } = useGameContext();
-  const [state, dispatch] = useReducer(gameReducer, {
-    currentQuestionIndex: 0,
-    score: 0,
-    numberOfCorrectAnswers: 0,
-    numberOfWrongAnswers: 0,
-  });
+
+  const [state, dispatch] = useReducer(gameReducer, initialState);
 
   useEffect(() => {
     (async function () {
@@ -36,7 +32,7 @@ export const GameArea = (): JSX.Element => {
         setStatus(APIStatus.SUCCESS);
         return dataDispatch({
           type: "SET_DATA",
-          payload: response.questions,
+          payload: { questions: response.questions },
         });
       }
       setStatus(APIStatus.ERROR);

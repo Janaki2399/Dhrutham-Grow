@@ -1,12 +1,12 @@
 export type Detail = {
   details: DetailItem;
-  success: Boolean;
+  success: boolean;
 };
 export type DetailItem = {
-  rules: String;
-  playtime: String;
+  rules: string;
+  playtime: string;
 };
 export type ErrorMessage = {
-  success: Boolean;
-  errorMessage: String;
+  success: boolean;
+  errorMessage: string;
 };
