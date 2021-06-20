@@ -29,7 +29,7 @@ export const ProgressList = () => {
     return <Loader />;
   }
   return (
-    <div className="flex items-center justify-center h-screen m-5">
+    <div>
       <div>
         <div className="text-center text-3xl font-semibold text-primary-color">
           Completed Quizzes

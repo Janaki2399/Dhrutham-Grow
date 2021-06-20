@@ -16,6 +16,7 @@ export const Options = ({
       {questions.length > 0 &&
         questions[state.currentQuestionIndex].options.map((item, index) => (
           <OptionItem
+            key={index}
             isRight={item.isRight}
             isSelected={item.isSelected}
             text={item.text}

@@ -16,9 +16,12 @@ export const Options = ({ options }: OptionsProps) => {
 
   return (
     <div className="grid grid-cols-2 grid-rows-2 gap-5">
-      {options.map((option) => {
+      {options.map((option, index) => {
         return (
-          <div className={getOptionStyle(option.isSelected, option.isRight)}>
+          <div
+            key={index}
+            className={getOptionStyle(option.isSelected, option.isRight)}
+          >
             {option.text}
           </div>
         );

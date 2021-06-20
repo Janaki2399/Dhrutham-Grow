@@ -15,6 +15,7 @@ export type ErrorMessage = {
 };
 
 export type OptionItemProps = {
+  key: React.Key;
   text: string;
   isRight: boolean;
   isSelected: boolean;

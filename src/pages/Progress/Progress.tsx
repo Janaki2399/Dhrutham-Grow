@@ -34,7 +34,7 @@ export const Progress = () => {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen m-5">
+    <div className="mt-20 m-auto">
       <div className="max-w-6xl ">
         <div className="text-center">
           <div className="text-xl">Your Highest Score </div>
@@ -49,7 +49,10 @@ export const Progress = () => {
         <div className="flex flex-wrap gap-6 place-content-center mt-5">
           {progress?.attemptDetails.map((item, index) => {
             return (
-              <div className="border border-gray-300 pr-12 pl-5 py-3 bg-gray-300">
+              <div
+                key={item._id}
+                className="border border-gray-300 pr-12 pl-5 py-3 bg-gray-300"
+              >
                 <div className="text-center">Attempt {index + 1}</div>
                 <div className="font-semibold text-lg">
                   Score : {item.score}
