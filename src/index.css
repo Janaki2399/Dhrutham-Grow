@@ -58,4 +58,8 @@ code {
   .input-label {
     @apply text-sm font-semibold;
   }
+
+  .center-page {
+    @apply flex items-center justify-center h-screen m-5;
+  }
 }

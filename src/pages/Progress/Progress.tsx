@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/Auth/auth-context";
 import { ErrorMessage, ScoreDetails } from "./Progress.types";
 import { getProgress } from "../../services/Progress/getProgress";
-import { APIStatus } from "../../constants";
+import { API_STATUS } from "../../constants";
 import { useParams } from "react-router";
 import { Loader } from "../../components/Loader";
 
@@ -10,32 +10,37 @@ export const Progress = () => {
   const { progressId } = useParams();
 
   const [progress, setProgress] = useState<ScoreDetails | null>(null);
-  const [status, setStatus] = useState<APIStatus>(APIStatus.IDLE);
+  const [status, setStatus] = useState<API_STATUS>(API_STATUS.IDLE);
   const [error, setError] = useState<ErrorMessage | null>(null);
 
   const { token } = useAuth();
+
   useEffect(() => {
     (async function () {
-      setStatus(APIStatus.LOADING);
+      setStatus(API_STATUS.LOADING);
       const progress = await getProgress(progressId, token);
 
       if ("highestScore" in progress) {
-        setStatus(APIStatus.SUCCESS);
+        setStatus(API_STATUS.SUCCESS);
         return setProgress(progress);
       }
 
-      setStatus(APIStatus.ERROR);
+      setStatus(API_STATUS.ERROR);
       setError(progress);
     })();
   }, [token, progressId]);
 
-  if (status === APIStatus.LOADING || status === APIStatus.IDLE) {
-    return <Loader />;
+  if (status === API_STATUS.LOADING || status === API_STATUS.IDLE) {
+    return (
+      <div className="center-page">
+        <Loader />
+      </div>
+    );
   }
 
   return (
     <div className="mt-20 m-auto">
-      <div className="max-w-6xl ">
+      <div className="max-w-6xl m-auto">
         <div className="text-center">
           <div className="text-xl">Your Highest Score </div>
           <div className="rounded-full h-24 w-24 flex items-center justify-center m-auto border text-3xl my-5 text-primary-color bg-gray-300">

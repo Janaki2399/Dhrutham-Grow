@@ -1,4 +1,3 @@
-import { strict } from "assert";
 import axios from "axios";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -31,12 +30,12 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
   const [token, setToken] = useState<string | null>(savedToken?.token);
   const navigate = useNavigate();
 
-  //   function setupAuthHeaderForServiceCalls(token) {
-  //     if (token) {
-  //       return (axios.defaults.headers.common["Authorization"] = token);
-  //     }
-  //     delete axios.defaults.headers.common["Authorization"];
+  // function setupAuthHeaderForServiceCalls(token) {
+  //   if (token) {
+  //     return (axios.defaults.headers.common["Authorization"] = token);
   //   }
+  //   delete axios.defaults.headers.common["Authorization"];
+  // }
   const login = async (email: string, password: string, state: RouteState) => {
     try {
       const { data, status } = await axios.post<Login>(`${API_URL}/login`, {

@@ -5,13 +5,16 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import { DataProvider } from "./context/data/data-context";
 import { AuthProvider } from "./context/Auth/auth-context";
+import { CategoryProvider } from "./context/category/category-context";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <AuthProvider>
         <DataProvider>
-          <App />
+          <CategoryProvider>
+            <App />
+          </CategoryProvider>
         </DataProvider>
       </AuthProvider>
     </Router>

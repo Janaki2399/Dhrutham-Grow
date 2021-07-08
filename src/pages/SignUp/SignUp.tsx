@@ -1,154 +1,130 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/Auth/auth-context";
-import { ErrorPartial } from "./SignUp.types";
+import { Loader } from "../../components/Loader";
+import quiz from "../../assets/quiz.svg";
+import { useNavigate } from "react-router";
+import { InputErrorProps } from "./SignUp.types";
+import { API_STATUS } from "../../constants";
+import { useSignup } from "../../hooks/useSignup";
 
 export function SignUp() {
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [errors, setErrors] = useState<ErrorPartial>({});
+  const {
+    handleSignUp,
+    handleOnChange,
+    handleOnBlur,
+    errors,
+    shouldShowErrors,
+    getInputClassName,
+    status,
+    isBtnDisabled,
+    errorMessage,
+  } = useSignup();
+
   const navigate = useNavigate();
-  const { signUp } = useAuth();
-
-  function handleSignUp(e: { preventDefault: () => void }) {
-    e.preventDefault();
-    // console.log("helo");
-    const validationError = validateSignUp(
-      firstName,
-      lastName,
-      email,
-      password
-    );
-    if (Object.keys(validationError).length > 0) {
-      return setErrors(validationError);
-    }
-    signUp({ firstName, lastName, email, password });
-  }
-
-  function validateSignUp(
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string
-  ) {
-    let error: ErrorPartial = {};
-    if (firstName.length === 0) {
-      error.firstName = "First Name cannot be empty";
-    }
-    if (lastName.length === 0) {
-      error.lastName = "First Name cannot be empty";
-    }
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
-      error.email = "Enter a valid email address";
-    }
-    if (password.length < 6) {
-      error.password = "Password must be atleast 6 characters";
-    }
-    return error;
-  }
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <form
-        onSubmit={handleSignUp}
-        className="max-w-2xl border p-7 shadow-lg"
-        // style={{ width: "90%", maxWidth: "20rem" }}
-        noValidate
-      >
-        <div className="text-xl mb-3 text-center font-semibold">Sign Up</div>
-        <div>
-          <label className="input-label">First Name</label>
-          <input
-            type="text"
-            className={
-              errors.firstName ? "error-input-box" : "generic-input-box"
-            }
-            onChange={(e) => {
-              setFirstName(e.target.value);
-            }}
-            // onBlur={()=>validateSignUp("firstName")}
-          />
-          {errors.firstName && (
-            <span className="error-text">{errors.firstName}</span>
-          )}
-        </div>
+    <div className="flex flex-col items-center justify-evenly h-screen md:flex-row md:flex bg-gray-50">
+      <div className=" md:w-2/5 md:visible">
+        <img src={quiz} alt="img" />
+      </div>
+      <div className="flex flex-col items-center justify-center h-screen">
+        <form
+          onSubmit={handleSignUp}
+          className="max-w-2xl border p-7 shadow-lg"
+          noValidate
+        >
+          <div className="text-xl mb-3 text-center font-semibold">Sign Up</div>
+          <div>
+            <label className="input-label">First Name</label>
+            <input
+              type="text"
+              className={getInputClassName("firstName")}
+              onChange={handleOnChange("firstName")}
+              onBlur={() => handleOnBlur("firstName")}
+            />
+            {shouldShowErrors("firstName") && (
+              <InputError errorMessage={errors.firstName} />
+            )}
+          </div>
 
-        <div>
-          <label className="input-label">Last Name</label>
-          <input
-            type="text"
-            className={
-              errors.lastName ? "error-input-box" : "generic-input-box"
-            }
-            // required
-            onChange={(e) => {
-              setLastName(e.target.value);
-            }}
-            // onBlur={()=>validateSignUp("lastName")}
-          />
-          {errors.lastName && (
-            <span role="alert" className="error-text">
-              {errors.lastName}
+          <div>
+            <label className="input-label">Last Name</label>
+            <input
+              type="text"
+              className={getInputClassName("lastName")}
+              onChange={handleOnChange("lastName")}
+              onBlur={() => handleOnBlur("lastName")}
+            />
+            {shouldShowErrors("lastName") && (
+              <InputError errorMessage={errors.lastName} />
+            )}
+          </div>
+
+          <div>
+            <label className="input-label">Email</label>
+            <input
+              type="email"
+              className={getInputClassName("email")}
+              required
+              onChange={handleOnChange("email")}
+              onBlur={() => handleOnBlur("email")}
+            />
+            {shouldShowErrors("email") && (
+              <InputError errorMessage={errors.email} />
+            )}
+          </div>
+
+          <div>
+            <label className="input-label">Password</label>
+            <input
+              type="password"
+              className={getInputClassName("password")}
+              required
+              onChange={handleOnChange("password")}
+              onBlur={() => handleOnBlur("password")}
+            />
+            {shouldShowErrors("password") && (
+              <InputError errorMessage={errors.password} />
+            )}
+          </div>
+
+          <div>
+            <button
+              disabled={isBtnDisabled(errors)}
+              className="bg-primary-color text-white p-1 w-full mt-5"
+              type="submit"
+            >
+              SIGN UP
+            </button>
+          </div>
+
+          <div className="mt-3 text-center text-md">
+            Already have an account?
+            <span
+              className="text-primary-color font-bold cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              Login
             </span>
-          )}
-        </div>
-        <div>
-          <label className="input-label">Email</label>
-          <input
-            type="email"
-            className={
-              errors.lastName ? "error-input-box" : "generic-input-box"
-            }
-            required
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          {errors.email && (
-            <span role="alert" className="error-text">
-              {errors.email}
-            </span>
-          )}
-        </div>
-        <div>
-          <label className="input-label">Password</label>
-          <input
-            type="password"
-            className={
-              errors.lastName ? "error-input-box" : "generic-input-box"
-            }
-            required
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-          {errors.password && (
-            <span role="alert" className="error-text">
-              {errors.password}
-            </span>
-          )}
-        </div>
-        <div>
-          <button
-            className="bg-primary-color text-white p-1 w-full mt-5"
-            type="submit"
-            // onClick={() => validateLogin(email, password, state)}
-          >
-            SIGN UP
-          </button>
-        </div>
-        <div className="mt-3 text-center text-md">
-          Already have an account?
-          <span
-            className="text-primary-color font-bold cursor-pointer"
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </span>
-        </div>
-      </form>
+          </div>
+        </form>
+        {status === API_STATUS.LOADING && (
+          <div className="mt-5">
+            <Loader />
+          </div>
+        )}
+        {status === API_STATUS.ERROR && (
+          <div className="mt-5 bg-red-200 px-4 py-1 text-primary-color font-semibold">
+            {errorMessage}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
+
+export const InputError = ({ errorMessage }: InputErrorProps) => {
+  return (
+    <span role="alert" className="error-text">
+      {errorMessage}
+    </span>
+  );
+};

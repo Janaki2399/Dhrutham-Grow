@@ -20,11 +20,11 @@ export const OptionItem = ({
     isOptionRight: Boolean
   ): string => {
     if (isOptionSelected && isOptionRight) {
-      return "option-btn option-correct";
+      return "option-btn option-correct h-full break-words";
     } else if (isOptionSelected && !isOptionRight) {
-      return "option-btn option-wrong";
+      return "option-btn option-wrong h-full break-words";
     }
-    return "option-btn option-unselected";
+    return "option-btn option-unselected h-full break-words";
   };
 
   const updateScore = (isOptionRight: Boolean) => {

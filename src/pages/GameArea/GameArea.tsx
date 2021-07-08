@@ -10,7 +10,7 @@ import { Question } from "../../components/GameArea/Question";
 import { getGameQuestions } from "../../services/GameArea/getQuestions";
 import { useAuth } from "../../context/Auth/auth-context";
 import { API_URL } from "../../config";
-import { APIStatus } from "../../constants";
+import { API_STATUS } from "../../constants";
 import { Loader } from "../../components/Loader";
 import axios from "axios";
 
@@ -19,29 +19,34 @@ export const GameArea = (): JSX.Element => {
   const navigate = useNavigate();
   const { token } = useAuth();
   const [error, setError] = useState<ErrorMessage | null>(null);
-  const [status, setStatus] = useState<APIStatus>(APIStatus.IDLE);
+  const [status, setStatus] = useState<API_STATUS>(API_STATUS.IDLE);
   const { dataDispatch } = useGameContext();
 
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
   useEffect(() => {
     (async function () {
-      setStatus(APIStatus.LOADING);
+      setStatus(API_STATUS.LOADING);
       const response = await getGameQuestions(quizId, token);
+
       if ("questions" in response) {
-        setStatus(APIStatus.SUCCESS);
+        setStatus(API_STATUS.SUCCESS);
         return dataDispatch({
           type: "SET_DATA",
           payload: { questions: response.questions },
         });
       }
-      setStatus(APIStatus.ERROR);
+      setStatus(API_STATUS.ERROR);
       setError(response);
     })();
   }, [token, quizId, dataDispatch]);
 
-  if (status === APIStatus.LOADING || status === APIStatus.IDLE) {
-    return <Loader />;
+  if (status === API_STATUS.LOADING || status === API_STATUS.IDLE) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   const swipeToNextQuestion = () => {

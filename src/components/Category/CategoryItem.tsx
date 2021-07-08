@@ -5,7 +5,7 @@ export const CategoryItem = ({ item }: QuizItemProps): JSX.Element => {
   const navigate = useNavigate();
   return (
     <div
-      className="md:shadow-lg"
+      className="md:shadow-lg cursor-pointer"
       onClick={() => {
         navigate(`/quiz/${item._id}/rules`);
       }}

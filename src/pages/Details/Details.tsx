@@ -3,7 +3,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { ErrorMessage } from "../QuizCategories/QuizCategories.types";
 import { Detail, DetailItem } from "./Details.types";
 import { useAuth } from "../../context/Auth/auth-context";
-import { APIStatus } from "../../constants";
+import { API_STATUS } from "../../constants";
 import { Loader } from "../../components/Loader";
 import { getGameDetails } from "../../services/Details/getGameDetails";
 
@@ -12,25 +12,29 @@ export const Details = (): JSX.Element => {
   const navigate = useNavigate();
   const { token } = useAuth();
   const [details, setDetails] = useState<DetailItem | null>(null);
-  const [status, setStatus] = useState<APIStatus>(APIStatus.IDLE);
+  const [status, setStatus] = useState<API_STATUS>(API_STATUS.IDLE);
   const [error, setError] = useState<ErrorMessage | null>(null);
 
   useEffect(() => {
     (async function () {
-      setStatus(APIStatus.LOADING);
+      setStatus(API_STATUS.LOADING);
       const details = await getGameDetails(quizId, token);
 
       if ("rules" in details) {
-        setStatus(APIStatus.SUCCESS);
+        setStatus(API_STATUS.SUCCESS);
         return setDetails(details);
       }
-      setStatus(APIStatus.ERROR);
+      setStatus(API_STATUS.ERROR);
       setError(details);
     })();
   }, [token, quizId]);
 
-  if (status === APIStatus.LOADING || status === APIStatus.IDLE) {
-    return <Loader />;
+  if (status === API_STATUS.LOADING || status === API_STATUS.IDLE) {
+    return (
+      <div className="center-page">
+        <Loader />
+      </div>
+    );
   }
 
   return (
