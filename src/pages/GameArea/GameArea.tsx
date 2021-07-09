@@ -43,7 +43,7 @@ export const GameArea = (): JSX.Element => {
 
   if (status === API_STATUS.LOADING || status === API_STATUS.IDLE) {
     return (
-      <div>
+      <div className="center-page">
         <Loader />
       </div>
     );

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/Auth/auth-context";
 import { Loader } from "../components/Loader";
-import quiz from "../../assets/quiz.svg";
+import quiz from "../assets/quiz.svg";
 import { useFormValidation } from "../hooks/useFormValidation";
 import { InputErrorProps, SignUpDetails } from "../pages/SignUp/SignUp.types";
 import { API_STATUS } from "../constants";

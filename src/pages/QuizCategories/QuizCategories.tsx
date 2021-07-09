@@ -73,7 +73,7 @@ export const QuizCategories = (): JSX.Element => {
       <div className="text-center text-3xl text-gray-800">
         Featured Categories
       </div>
-      <div className="grid grid-flow-col grid-cols-1 grid-rows-3 md:grid-cols-3 md:grid-rows-1 md-grid-flow-row gap-20 m-12">
+      <div className="grid grid-flow-col grid-cols-1 grid-rows-3 md:grid-cols-3 md:grid-rows-1 md-grid-flow-row gap-2 0 m-12">
         {categoryState.quizList &&
           categoryState.quizList.map((item) => {
             return <CategoryItem key={item._id} item={item} />;
