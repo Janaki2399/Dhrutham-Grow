@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getGameDetails } from "./getGameDetails";
+import { getGameRules } from "./getGameRules";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -16,7 +16,7 @@ describe("test for get details service", () => {
       },
     });
     const token = "Bearer 4Jku5i";
-    const details = await getGameDetails("123", token);
+    const details = await getGameRules("123", token);
 
     expect(details).toEqual({
       rules:
@@ -36,7 +36,7 @@ describe("test for get details service", () => {
     mockedAxios.isAxiosError.mockImplementation((payload) => true);
 
     const token = "Bearer 4Jku5i";
-    const details = await getGameDetails("123", token);
+    const details = await getGameRules("123", token);
 
     expect(details).toEqual({
       success: false,
@@ -47,7 +47,7 @@ describe("test for get details service", () => {
   });
   it("returns Error Message for errors other than API error", async () => {
     const token = "Bearer 4Jku5i";
-    const details = await getGameDetails("123", token);
+    const details = await getGameRules("123", token);
     expect(details).toEqual({
       success: false,
       errorMessage: "Something went wrong",

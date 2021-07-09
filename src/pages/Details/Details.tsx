@@ -5,7 +5,7 @@ import { Detail, DetailItem } from "./Details.types";
 import { useAuth } from "../../context/Auth/auth-context";
 import { API_STATUS } from "../../constants";
 import { Loader } from "../../components/Loader";
-import { getGameDetails } from "../../services/Details/getGameDetails";
+import { getGameRules } from "../../services/Details/getGameRules";
 
 export const Details = (): JSX.Element => {
   const { quizId } = useParams();
@@ -18,7 +18,7 @@ export const Details = (): JSX.Element => {
   useEffect(() => {
     (async function () {
       setStatus(API_STATUS.LOADING);
-      const details = await getGameDetails(quizId, token);
+      const details = await getGameRules(quizId, token);
 
       if ("rules" in details) {
         setStatus(API_STATUS.SUCCESS);

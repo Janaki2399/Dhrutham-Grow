@@ -2,7 +2,7 @@ import { Detail, ErrorMessage } from "../../pages/Details/Details.types";
 import axios, { AxiosError } from "axios";
 import { API_URL } from "../../config";
 
-export const getGameDetails = async (quizId: string, token: string | null) => {
+export const getGameRules = async (quizId: string, token: string | null) => {
   try {
     const { data } = await axios.get<Detail>(
       `${API_URL}/quiz/${quizId}/rules`,
