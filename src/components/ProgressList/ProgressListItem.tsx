@@ -11,7 +11,7 @@ export const ProgressListItem = ({ _id, numberOfAttempts, quiz }: Progress) => {
         className="object-cover h-full w-full md:w-70 md:h-60 "
         alt="quiz-thumbnail"
       />
-      <div className="flex items-center justify-between py-3 px-1">
+      <div className="flex flex-col text-left md:flex-row md:items-center justify-between py-3 px-1">
         <div>
           <div className="font-semibold">{quiz.name}</div>
           <div className="text-gray-600">

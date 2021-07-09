@@ -1,6 +1,4 @@
-import React, { useState } from "react";
 import { ErrorPartial } from "../pages/SignUp/SignUp.types";
-import { LoginDetails } from "../pages/Login/Login.types";
 import { SignUpDetails } from "../pages/SignUp/SignUp.types";
 
 export const useFormValidation = () => {

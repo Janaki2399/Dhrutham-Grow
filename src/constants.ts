@@ -4,3 +4,4 @@ export enum API_STATUS {
   SUCCESS = "success",
   ERROR = "error",
 }
+export const API_URL = "https://dhrutham-grow-backend.herokuapp.com";

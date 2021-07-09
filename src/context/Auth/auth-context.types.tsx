@@ -17,10 +17,9 @@ export type Token = {
 
 export type ContextType = {
   token: string | null;
-  login: LoginFunction;
   setToken: SetTokenFunction;
-  signUp: SignUpFunction;
 };
+
 export type RouteState = {
   from: string;
 };

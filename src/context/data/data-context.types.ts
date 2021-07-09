@@ -4,14 +4,16 @@ export type ContextType = {
   dataState: State;
   dataDispatch: React.Dispatch<ACTIONTYPE>;
 };
+
 export type State = {
   questions: Question[];
 };
+
 export type ChildrenProps = {
   children: ReactNode;
 };
+
 export type Question = {
-  // [key: number]: Question;
   _id: string;
   topic: string;
   question: string;
@@ -20,11 +22,13 @@ export type Question = {
   isAttempted: boolean;
   options: Option[];
 };
+
 export type Option = {
   text: string;
   isRight: boolean;
   isSelected: boolean;
 };
+
 export type ACTIONTYPE =
   | { type: "SET_DATA"; payload: { questions: Question[] } }
   | {

@@ -4,24 +4,25 @@ import { getProgressList } from "../../services/ProgressList/getProgressList";
 import { ErrorMessage, Progress } from "./ProgressList.types";
 import { API_STATUS } from "../../constants";
 import { Loader } from "../../components/Loader";
+import { Error } from "../../components/Error";
 import { ProgressListItem } from "../../components/ProgressList/ProgressListItem";
 
 export const ProgressList = () => {
   const [progressList, setProgressList] = useState<Progress[] | null>(null);
   const [status, setStatus] = useState<API_STATUS>(API_STATUS.IDLE);
-  const [error, setError] = useState<ErrorMessage | null>(null);
 
   const { token } = useAuth();
   useEffect(() => {
     (async function () {
       setStatus(API_STATUS.LOADING);
       const progressList = await getProgressList(token);
+
       if (Array.isArray(progressList)) {
         setStatus(API_STATUS.SUCCESS);
         return setProgressList(progressList);
       }
+
       setStatus(API_STATUS.ERROR);
-      setError(progressList);
     })();
   }, [token]);
 
@@ -31,6 +32,9 @@ export const ProgressList = () => {
         <Loader />
       </div>
     );
+  }
+  if (status === API_STATUS.ERROR) {
+    return <Error />;
   }
   return (
     <div>

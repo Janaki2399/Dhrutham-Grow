@@ -1,4 +1,5 @@
 import { State, ACTIONTYPE } from "./loginReducer.types";
+
 export function loginReducer(state: State, action: ACTIONTYPE): State {
   switch (action.type) {
     case "HANDLE_INPUT_CHANGE":
@@ -9,6 +10,7 @@ export function loginReducer(state: State, action: ACTIONTYPE): State {
           [action.payload.field]: action.payload.value,
         },
       };
+
     case "HANDLE_ON_BLUR":
       return {
         ...state,
@@ -17,11 +19,13 @@ export function loginReducer(state: State, action: ACTIONTYPE): State {
           [action.payload.field]: true,
         },
       };
+
     case "SET_STATUS":
       return {
         ...state,
         status: action.payload.status,
       };
+
     case "SET_ERROR_MESSAGE":
       return {
         ...state,

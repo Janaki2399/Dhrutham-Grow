@@ -1,5 +1,5 @@
 import { ScoreType } from "./Analysis.types";
-import { useLocation, useParams } from "react-router";
+import { useLocation } from "react-router";
 import { Score } from "../../components/Analysis/Score";
 import { Review } from "../../components/Analysis/Review";
 

@@ -1,6 +1,6 @@
 import { Detail, ErrorMessage } from "../../pages/Details/Details.types";
 import axios, { AxiosError } from "axios";
-import { API_URL } from "../../config";
+import { API_URL } from "../../constants";
 
 export const getGameRules = async (quizId: string, token: string | null) => {
   try {

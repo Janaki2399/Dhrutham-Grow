@@ -4,6 +4,7 @@ import { useAuth } from "../context/Auth/auth-context";
 export const NavBar = () => {
   const navigate = useNavigate();
   const { token, setToken } = useAuth();
+
   const logout = () => {
     setToken(null);
     localStorage?.removeItem("login");
@@ -20,15 +21,18 @@ export const NavBar = () => {
       >
         Dhrutham Grow
       </div>
-      <div className="flex">
+      <div className="flex items-center">
         <div className="mr-3">
           {!token ? (
-            <Link to="/login" className=" nav-item anchor-link">
+            <Link
+              to="/login"
+              className=" nav-item anchor-link bg-primary-color px-3 py-0.5 text-white"
+            >
               Login
             </Link>
           ) : (
             <div className="nav-item cursor-pointer" onClick={logout}>
-              Logout
+              <span className="material-icons-outlined">logout</span>
             </div>
           )}
         </div>

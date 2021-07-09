@@ -4,20 +4,13 @@ import {
   ErrorMessage,
   LoginDetails,
 } from "../../pages/Login/Login.types";
-import { API_URL } from "../../config";
-export const login = async (
-  userDetails: LoginDetails,
-  token: string | null
-) => {
+import { API_URL } from "../../constants";
+
+export const login = async (userDetails: LoginDetails) => {
   try {
     const { data } = await axios.post<LoginResponse>(
       `${API_URL}/login`,
-      userDetails,
-      {
-        headers: {
-          authorization: token,
-        },
-      }
+      userDetails
     );
 
     return data;

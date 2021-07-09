@@ -1,4 +1,4 @@
-import React, { createContext, Reducer, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import { dataReducer } from "../../reducers/data/dataReducer";
 import { ChildrenProps, ContextType } from "./data-context.types";
 

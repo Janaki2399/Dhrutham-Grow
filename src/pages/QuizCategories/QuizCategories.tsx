@@ -4,6 +4,7 @@ import { getQuizList } from "../../services/QuizCategories/getQuizList";
 import { API_STATUS } from "../../constants";
 import quizMcq from "../../assets/quizMcq.svg";
 import { Loader } from "../../components/Loader";
+import { Error } from "../../components/Error";
 import { useCategoryContext } from "../../context/category/category-context";
 
 export const QuizCategories = (): JSX.Element => {
@@ -27,34 +28,6 @@ export const QuizCategories = (): JSX.Element => {
     })();
   }, [categoryDispatch, categoryState.status]);
 
-  if (
-    categoryState.status === API_STATUS.LOADING ||
-    categoryState.status === API_STATUS.IDLE
-  ) {
-    return (
-      <div className="center-page">
-        <Loader />
-      </div>
-    );
-  }
-
-  // if (status === API_STATUS.ERROR) {
-  //   return (
-  //     <div className="flex items-center justify-center h-screen m-5">
-  //       <div className="flex-col relative">
-  //         <div className="">Something went wrong</div>
-  //         <img
-  //           className="relative"
-  //           src={Error}
-  //           alt="error"
-  //           width="500"
-  //           height="400"
-  //         />
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className="mt-14 bg-gray-100">
       <div className=" container mx-auto lg:h-128 lg:space-x-8 lg:flex lg:items-center">
@@ -73,12 +46,21 @@ export const QuizCategories = (): JSX.Element => {
       <div className="text-center text-3xl text-gray-800">
         Featured Categories
       </div>
-      <div className="grid grid-flow-col grid-cols-1 grid-rows-3 md:grid-cols-3 md:grid-rows-1 md-grid-flow-row gap-2 0 m-12">
-        {categoryState.quizList &&
-          categoryState.quizList.map((item) => {
-            return <CategoryItem key={item._id} item={item} />;
-          })}
-      </div>
+      {(categoryState.status === API_STATUS.LOADING ||
+        categoryState.status === API_STATUS.IDLE) && (
+        <div className="center-page">
+          <Loader />
+        </div>
+      )}
+      {categoryState.status === API_STATUS.SUCCESS && (
+        <div className="grid grid-flow-col grid-cols-1 grid-rows-3 md:grid-cols-3 md:grid-rows-1 md-grid-flow-row gap-20  m-12">
+          {categoryState.quizList &&
+            categoryState.quizList.map((item) => {
+              return <CategoryItem key={item._id} item={item} />;
+            })}
+        </div>
+      )}
+      {categoryState.status === API_STATUS.ERROR && <Error />}
     </div>
   );
 };

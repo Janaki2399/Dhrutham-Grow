@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { Progress, ErrorMessage } from "../../pages/Progress/Progress.types";
-import { API_URL } from "../../config";
+import { API_URL } from "../../constants";
 
 export const getProgress = async (progessId: string, token: string | null) => {
   try {

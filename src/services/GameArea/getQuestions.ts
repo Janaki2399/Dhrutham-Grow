@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { ErrorMessage, Game } from "../../pages/GameArea/GameArea.types";
-import { API_URL } from "../../config";
+import { API_URL } from "../../constants";
+
 export const getGameQuestions = async (
   quizId: string,
   token: string | null

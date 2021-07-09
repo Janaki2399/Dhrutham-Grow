@@ -1,16 +1,13 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/Auth/auth-context";
-import { Loader } from "../components/Loader";
-import quiz from "../assets/quiz.svg";
 import { useFormValidation } from "../hooks/useFormValidation";
-import { InputErrorProps, SignUpDetails } from "../pages/SignUp/SignUp.types";
+import { SignUpDetails } from "../pages/SignUp/SignUp.types";
 import { API_STATUS } from "../constants";
 import { signup } from "../services/SignUp/signup";
-import { RouteState } from "../context/Auth/auth-context.types";
 
 export const useSignup = () => {
-  const { token, setToken } = useAuth();
+  const { setToken } = useAuth();
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
     firstName: "",
@@ -23,15 +20,14 @@ export const useSignup = () => {
   const [touchedFields, setTouchedFields] = useState<Partial<SignUpDetails>>(
     {}
   );
-  const location = useLocation();
-  const state = location.state as RouteState;
+
   const { validateSignUp, isBtnDisabled } = useFormValidation();
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setStatus(API_STATUS.LOADING);
-    const signUpResponse = await signup(userDetails, token);
+    const signUpResponse = await signup(userDetails);
 
     if ("token" in signUpResponse) {
       setStatus(API_STATUS.SUCCESS);

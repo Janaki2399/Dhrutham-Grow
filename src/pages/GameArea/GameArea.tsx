@@ -1,6 +1,6 @@
 import { useEffect, useState, useReducer } from "react";
 import { gameReducer, initialState } from "../../reducers/game/gameReducer";
-import { Navigate, Route, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ErrorMessage } from "../QuizCategories/QuizCategories.types";
 import { useGameContext } from "../../context/data/data-context";
 import { Options } from "../../components/GameArea/Options";
@@ -9,8 +9,9 @@ import { ActionButton } from "../../components/GameArea/ActionButton";
 import { Question } from "../../components/GameArea/Question";
 import { getGameQuestions } from "../../services/GameArea/getQuestions";
 import { useAuth } from "../../context/Auth/auth-context";
-import { API_URL } from "../../config";
+import { API_URL } from "../../constants";
 import { API_STATUS } from "../../constants";
+import { Error } from "../../components/Error";
 import { Loader } from "../../components/Loader";
 import axios from "axios";
 
@@ -18,7 +19,6 @@ export const GameArea = (): JSX.Element => {
   const { quizId } = useParams();
   const navigate = useNavigate();
   const { token } = useAuth();
-  const [error, setError] = useState<ErrorMessage | null>(null);
   const [status, setStatus] = useState<API_STATUS>(API_STATUS.IDLE);
   const { dataDispatch } = useGameContext();
 
@@ -37,7 +37,6 @@ export const GameArea = (): JSX.Element => {
         });
       }
       setStatus(API_STATUS.ERROR);
-      setError(response);
     })();
   }, [token, quizId, dataDispatch]);
 
@@ -48,6 +47,9 @@ export const GameArea = (): JSX.Element => {
       </div>
     );
   }
+  if (status === API_STATUS.ERROR) {
+    return <Error />;
+  }
 
   const swipeToNextQuestion = () => {
     setTimeout(() => {
@@ -56,7 +58,7 @@ export const GameArea = (): JSX.Element => {
   };
 
   const navigateToScorePage = async () => {
-    const { data, status } = await axios.post(
+    const { status } = await axios.post(
       `${API_URL}/progress_list/${quizId}`,
       {
         score: state.score,

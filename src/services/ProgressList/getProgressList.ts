@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { API_URL } from "../../config";
+import { API_URL } from "../../constants";
 import {
   ProgressList,
   ErrorMessage,

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { ErrorMessage } from "../QuizCategories/QuizCategories.types";
-import { Detail, DetailItem } from "./Details.types";
+import { useNavigate, useParams } from "react-router-dom";
+import { DetailItem } from "./Details.types";
 import { useAuth } from "../../context/Auth/auth-context";
 import { API_STATUS } from "../../constants";
 import { Loader } from "../../components/Loader";
+import { Error } from "../../components/Error";
 import { getGameRules } from "../../services/Details/getGameRules";
 
 export const Details = (): JSX.Element => {
@@ -13,7 +13,6 @@ export const Details = (): JSX.Element => {
   const { token } = useAuth();
   const [details, setDetails] = useState<DetailItem | null>(null);
   const [status, setStatus] = useState<API_STATUS>(API_STATUS.IDLE);
-  const [error, setError] = useState<ErrorMessage | null>(null);
 
   useEffect(() => {
     (async function () {
@@ -25,7 +24,6 @@ export const Details = (): JSX.Element => {
         return setDetails(details);
       }
       setStatus(API_STATUS.ERROR);
-      setError(details);
     })();
   }, [token, quizId]);
 
@@ -36,7 +34,9 @@ export const Details = (): JSX.Element => {
       </div>
     );
   }
-
+  if (status === API_STATUS.ERROR) {
+    return <Error />;
+  }
   return (
     <div className="flex items-center justify-center h-screen w-full ">
       <div className="max-w-2xl border p-10 bg-gray-200">

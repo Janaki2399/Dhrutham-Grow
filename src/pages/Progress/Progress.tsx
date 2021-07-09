@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/Auth/auth-context";
-import { ErrorMessage, ScoreDetails } from "./Progress.types";
+import { ScoreDetails } from "./Progress.types";
 import { getProgress } from "../../services/Progress/getProgress";
 import { API_STATUS } from "../../constants";
 import { useParams } from "react-router";
+import { Error } from "../../components/Error";
 import { Loader } from "../../components/Loader";
 
 export const Progress = () => {
@@ -11,7 +12,6 @@ export const Progress = () => {
 
   const [progress, setProgress] = useState<ScoreDetails | null>(null);
   const [status, setStatus] = useState<API_STATUS>(API_STATUS.IDLE);
-  const [error, setError] = useState<ErrorMessage | null>(null);
 
   const { token } = useAuth();
 
@@ -26,7 +26,6 @@ export const Progress = () => {
       }
 
       setStatus(API_STATUS.ERROR);
-      setError(progress);
     })();
   }, [token, progressId]);
 
@@ -37,7 +36,9 @@ export const Progress = () => {
       </div>
     );
   }
-
+  if (status === API_STATUS.ERROR) {
+    return <Error />;
+  }
   return (
     <div className="mt-20 m-auto">
       <div className="max-w-6xl m-auto">

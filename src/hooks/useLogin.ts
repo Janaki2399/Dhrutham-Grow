@@ -36,7 +36,7 @@ export const useLogin = () => {
     e.preventDefault();
 
     setStatus(API_STATUS.LOADING);
-    const loginResponse = await login(userDetails, token);
+    const loginResponse = await login(userDetails);
 
     if ("token" in loginResponse) {
       setStatus(API_STATUS.SUCCESS);
