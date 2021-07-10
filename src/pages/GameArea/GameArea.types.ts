@@ -2,11 +2,11 @@ import React from "react";
 import { State, ACTIONTYPE } from "../../reducers/game/gameReducer.types";
 import { Question } from "../../context/data/data-context.types";
 export type Game = {
-  _id: React.Key;
-  game: {
-    questions: Question[];
-    totalScore: number;
-  };
+    _id: React.Key;
+    game: {
+      questions: Question[];
+      totalScore: number;
+    };
 };
 
 export type ErrorMessage = {

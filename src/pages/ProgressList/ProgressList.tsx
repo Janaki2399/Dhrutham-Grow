@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/Auth/auth-context";
 import { getProgressList } from "../../services/ProgressList/getProgressList";
-import { ErrorMessage, Progress } from "./ProgressList.types";
+import { Progress } from "./ProgressList.types";
 import { API_STATUS } from "../../constants";
 import { Loader } from "../../components/Loader";
 import { Error } from "../../components/Error";

@@ -96,8 +96,8 @@ export const Login = () => {
 };
 export const InputError = ({ errorMessage }: InputErrorProps) => {
   return (
-    <span role="alert" className="error-text">
+    <div role="alert" className="error-text">
       {errorMessage}
-    </span>
+    </div>
   );
 };

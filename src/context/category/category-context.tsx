@@ -1,4 +1,4 @@
-import React, { createContext, Reducer, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { API_STATUS } from "../../constants";
 import { categoryReducer } from "../../reducers/categories/categoryReducer";
 import { ChildrenProps, ContextType } from "./category-context.types";

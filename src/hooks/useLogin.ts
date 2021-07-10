@@ -2,21 +2,15 @@ import { useAuth } from "../context/Auth/auth-context";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useFormValidation } from "../hooks/useFormValidation";
-// import { Loader } from "../../components/Loader";
-// import quiz from "../../assets/quiz.svg";
 import { login } from "../services/Login/login";
-import {
-  ErrorPartial,
-  InputErrorProps,
-  LoginDetails,
-} from "../pages/Login/Login.types";
+import { LoginDetails } from "../pages/Login/Login.types";
 import { API_STATUS } from "../constants";
 
 export type RouteState = {
   from: string;
 };
 export const useLogin = () => {
-  const { token, setToken } = useAuth();
+  const { setToken } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as RouteState;

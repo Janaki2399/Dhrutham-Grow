@@ -1,7 +1,6 @@
 import { useEffect, useState, useReducer } from "react";
 import { gameReducer, initialState } from "../../reducers/game/gameReducer";
 import { useNavigate, useParams } from "react-router-dom";
-import { ErrorMessage } from "../QuizCategories/QuizCategories.types";
 import { useGameContext } from "../../context/data/data-context";
 import { Options } from "../../components/GameArea/Options";
 import { Header } from "../../components/GameArea/Header";
