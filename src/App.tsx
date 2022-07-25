@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+// import logo from "./logo.svg";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { QuizCategories } from "./pages/QuizCategories/QuizCategories";
+import { Login } from "./pages/Login/Login";
+import { SignUp } from "./pages/SignUp/SignUp";
+import { NavBar } from "./components/NavBar";
+import { Details } from "./pages/Details/Details";
+import { GameArea } from "./pages/GameArea/GameArea";
+import { Analysis } from "./pages/Analysis/Analysis";
+import { ProgressList } from "./pages/ProgressList/ProgressList";
+import { Progress } from "./pages/Progress/Progress";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <PrivateRoute path="/quiz/:quizId/rules" element={<Details />} />
+        <PrivateRoute path="/quiz/:quizId/play" element={<GameArea />} />
+        <PrivateRoute path="/quiz/:quizId/score" element={<Analysis />} />
+        <PrivateRoute path="/progress_list" element={<ProgressList />} />
+        <PrivateRoute path="/progress/:progressId" element={<Progress />} />
+        <Route path="/" element={<QuizCategories />} />
+      </Routes>
     </div>
   );
 }
